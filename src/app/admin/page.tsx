@@ -2,8 +2,11 @@
 
 import React, { useState, useRef } from 'react';
 import Papa from 'papaparse';
-import { Question } from '@/data/questions';
-import { Download, Upload, FileText, Zap, CheckCircle, AlertCircle } from 'lucide-react';
+import { Download, FileText, Zap } from 'lucide-react';
+
+interface CsvRow {
+  [key: string]: string | number;
+}
 
 export default function AdminPage() {
   const [apiKey, setApiKey] = useState('');
@@ -11,7 +14,7 @@ export default function AdminPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
   const [generatedQuestions, setGeneratedQuestions] = useState<string>('');
-  const [csvData, setCsvData] = useState<any[]>([]);
+  const [csvData, setCsvData] = useState<CsvRow[]>([]);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -41,9 +44,10 @@ export default function AdminPage() {
       } else {
         throw new Error(data.error);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus('error');
-      setMessage(err.message);
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      setMessage(errorMessage);
     }
   };
 
@@ -82,9 +86,10 @@ export default function AdminPage() {
       } else {
         throw new Error(data.error);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus('error');
-      setMessage(err.message);
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      setMessage(errorMessage);
     }
   };
 
@@ -92,7 +97,7 @@ export default function AdminPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    Papa.parse(file, {
+    Papa.parse<CsvRow>(file, {
       header: true,
       complete: (results) => {
         setCsvData(results.data);
@@ -229,7 +234,7 @@ export default function AdminPage() {
                   <tbody>
                     {csvData.slice(0, 5).map((row, i) => (
                       <tr key={i} className="bg-white border-b">
-                        {Object.values(row).map((val: any, j) => (
+                        {Object.values(row).map((val, j) => (
                           <td key={j} className="px-6 py-4 truncate max-w-xs">{val}</td>
                         ))}
                       </tr>
