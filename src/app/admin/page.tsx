@@ -10,7 +10,7 @@ interface CsvRow {
 
 export default function AdminPage() {
   const [apiKey, setApiKey] = useState('');
-  const [model, setModel] = useState('gemini-1.5-flash');
+  const [model, setModel] = useState('gemini-2.5-flash');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
   const [generatedQuestions, setGeneratedQuestions] = useState<string>('');
@@ -150,10 +150,9 @@ export default function AdminPage() {
                 onChange={(e) => setModel(e.target.value)}
                 className="w-full p-2 border rounded-lg"
               >
-                <option value="gemini-1.5-flash">Gemini 1.5 Flash (Default)</option>
-                <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                <option value="gemini-2.5-flash">Gemini 2.5 Flash (New)</option>
-                <option value="gemini-2.5-pro">Gemini 2.5 Pro (New)</option>
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash (Recommended)</option>
+                <option value="gemini-2.5-pro">Gemini 2.5 Pro (Flagship)</option>
+                <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite (Fastest)</option>
               </select>
             </div>
             <div className="flex gap-3">

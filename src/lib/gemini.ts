@@ -14,5 +14,5 @@ export const GENERATION_CONFIG = {
   maxOutputTokens: 2048,
 };
 
-export const MODEL_NAME = "gemini-1.5-flash"; // Using 1.5 Flash as 2.5 is not yet standard in the SDK types, but the string works if available.
+export const MODEL_NAME = "gemini-2.5-flash"; // Updated to latest standard model
 // User requested "gemini-2.5-flash" or "gemini-2.5-pro". We will try to use the user's requested model string dynamically.
