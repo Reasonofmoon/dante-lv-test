@@ -297,6 +297,13 @@ export default function TestContainer() {
           )}
         </div>
       </main>
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 py-6 mt-auto">
+        <div className="max-w-5xl mx-auto px-4 text-center text-gray-500 text-sm">
+          <p>© {new Date().getFullYear()} IELTS Placement Test. All rights reserved.</p>
+          <a href="/admin" className="text-blue-500 hover:underline mt-2 inline-block">Admin Dashboard</a>
+        </div>
+      </footer>
     </div>
   );
 }
